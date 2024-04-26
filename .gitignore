@@ -1,0 +1,3 @@
+unet_code/wandb/
+*__pycache__*
+*.pth
