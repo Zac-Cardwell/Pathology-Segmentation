@@ -7,7 +7,7 @@ from unet.resnet_unet import UNetTrained
 from utils.dice_score import dice_loss
 
 wandb.init(project='U-Net', resume='allow', anonymous='must', 
-           name='unet-5000-10-aug', notes='5000 samples, 10 epochs, applied augmentations')
+           name='unet-10000-10-aug', notes='10000 samples, 10 epochs, applied augmentations')
 
 def get_subset_files(path, n_samples=100, seed = 42):
     # Get all image files
@@ -23,7 +23,7 @@ codes = np.loadtxt(path/'codes.txt', dtype=str)  # if you have class codes for s
 
 params = {
     'seed': 50,
-    'n_samples':5000,
+    'n_samples':10000,
     'epochs': 10,
 }
 # batch_tfms = aug_transforms(do_flip=True, flip_vert=False, max_rotate=30.0, min_zoom=1.0, max_zoom=2.0, max_lighting=0.3, max_warp=0.2, p_affine=0.75, p_lighting=0.75)
