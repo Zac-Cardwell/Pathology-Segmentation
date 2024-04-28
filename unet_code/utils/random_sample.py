@@ -20,6 +20,18 @@ def unique(list1):
         print(x)
     return
 
+def get_images(img_dir: Path, mask_dir: Path, filter_ids):
+    # Get a list of all the images
+    all_images = [file for file in img_dir.iterdir() if file.is_file()]
+    
+    # Extract unique file ids and filter them
+    file_ids = [extract_file_id(file.name) for file in all_images]
+    # Filter file IDs based on a condition or a predefined list
+    filtered_images = [file for file, file_id in zip(all_images, file_ids) if file_id in filter_ids]
+    # Extract the corresponding masks
+    masks = [mask_dir / file.name for file in filtered_images]
+    return filtered_images, masks
+
 def get_random_images(img_dir: Path, mask_dir: Path, n_samples=1000, seed=None, filter_ids=None):
     # Get a list of all the images
     all_images = [file for file in img_dir.iterdir() if file.is_file()]
@@ -64,7 +76,8 @@ if __name__ == '__main__':
     dest_mask = Path("C:/Users/steel/Downloads/Pytorch-UNet/data/masks/")
     filter_ids = ['772233_1625116306','739526_1622166900','788846_1626753261']
 
-    imgs, masks = get_random_images(dir_img, dir_mask, 15000, filter_ids=filter_ids)
+    # imgs, masks = get_random_images(dir_img, dir_mask, 15000, filter_ids=filter_ids)
+    imgs, masks = get_images(dir_img, dir_mask, filter_ids=filter_ids)
     moved = move_files(imgs, dest_img)
     move = move_files(masks, dest_mask)
 
